@@ -39,6 +39,7 @@ class LogoutDialog extends StatelessWidget {
                               logoutResponse.first ? "Success" : "Failed",
                               logoutResponse.last,
                               logoutResponse.first,
+                              logoutResponse.first,
                             );
                           }
 

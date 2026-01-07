@@ -5,7 +5,8 @@ void showCustomFlushBar(
   BuildContext context,
   String title,
   String? message,
-  bool success,
+  bool success, 
+  bool? isSuccess
 ) {
   Flushbar(
     margin: EdgeInsets.all(16),

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
@@ -8,6 +7,7 @@ class QrScannerScreen extends StatefulWidget {
   @override
   State<QrScannerScreen> createState() => QrScannerScreenState();
 }
+String? qrValue;
 
 class QrScannerScreenState extends State<QrScannerScreen> {
 
@@ -21,8 +21,10 @@ class QrScannerScreenState extends State<QrScannerScreen> {
           onDetect: (barcodeCapture) {
             final code = barcodeCapture.barcodes.first.rawValue;
             if (code != null) {
-              Navigator.pop(context, code);
-            }
+            setState(() {
+               qrValue = code;
+               });    
+              Navigator.pop(context, qrValue);}
           },
         ),
       ),

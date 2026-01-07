@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
@@ -96,8 +98,28 @@ class Api {
     return response;
   }
 
-  // TODO Complete upload Functionality
-  // Future<List>upload(
-  //   File file
-  // ){}
+   Future<bool> uploadFile(File file) async {
+    try{
+      final uri = Uri.parse("$baseUrl/upload");
+      final request = http.MultipartRequest("POST", uri);
+          request.files.add(
+        await http.MultipartFile.fromPath(
+          'file',       
+          file.path,    
+        ),
+      );
+            final response = await request.send();
+      if (response.statusCode != 200) {
+         return false;
+      } else {
+        return true;
+      } 
+    }
+    catch(e){
+      if(kDebugMode){
+        print("UPLOAD ERROR: $e");
+      }
+      return false;
+  }
+  }
 }
