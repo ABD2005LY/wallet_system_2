@@ -114,43 +114,6 @@ class DigitalCard extends StatelessWidget {
           ),
           
         ),
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Container(
-            decoration: BoxDecoration(
-              color: primaryColor,
-        
-              borderRadius: BorderRadius.circular(16),
-            ),
-        
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Text(
-                    "Card Number",
-                    style: labelMedium.copyWith(color: whiteColor),
-                  ),
-        
-                  SizedBox(height: 10),
-        
-                  Text(
-                    walletModel.address,
-                    style: displaySmall.copyWith(
-                      color: whiteColor,
-                      letterSpacing: 2,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  
-                ],
-              ),
-            ),
-            
-          ),
-          
-        ),
       ],
     );
     

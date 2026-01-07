@@ -98,7 +98,7 @@ class Api {
     return response;
   }
 
-   Future<bool> uploadFile(File file) async {
+   Future<List> uploadFile(File file) async {
     try{
       final uri = Uri.parse("$baseUrl/vendor/upload");
       final request = http.MultipartRequest("POST", uri);
@@ -110,16 +110,16 @@ class Api {
       );
         final response = await request.send();
       if (response.statusCode != 200) {
-         return false;
+         return [false, "File upload failed"];
       } else {
-        return true;
+        return [true, "File uploaded successfully"];
       } 
     }
     catch(e){
       if(kDebugMode){
         print("UPLOAD ERROR: $e");
       }
-      return false;
+      return [false, "File upload failed"];
   }
   }
 }
