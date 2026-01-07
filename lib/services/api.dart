@@ -5,6 +5,7 @@ import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wallet_system_2/helpers/consts.dart';
+import 'package:path/path.dart' as path;
 
 class Api {
   Future<Response> get(String endPoint) async {
@@ -98,28 +99,43 @@ class Api {
     return response;
   }
 
-   Future<List> uploadFile(File file) async {
-    try{
-      final uri = Uri.parse("$baseUrl/vendor/upload");
-      final request = http.MultipartRequest("POST", uri);
-          request.files.add(
-        await http.MultipartFile.fromPath(
-          'file',       
-          file.path,    
-        ),
-      );
-        final response = await request.send();
-      if (response.statusCode != 200) {
-         return [false, "File upload failed"];
-      } else {
-        return [true, "File uploaded successfully"];
-      } 
+Future<Response> upload(File file) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString("token");
+
+    final uri = Uri.parse("$baseUrl/vendor/uploader");
+
+    var request = http.MultipartRequest('POST', uri);
+
+    request.files.add(
+      await http.MultipartFile.fromPath(
+        'file',
+        file.path,
+        filename: path.basename(file.path),
+      ),
+    );
+
+    request.headers['Accept'] = 'application/json';
+    request.headers['Authorization'] = 'Bearer $token';
+
+    if (kDebugMode) {
+      print("UPLOAD: $baseUrl/vendor/uploader");
+      print("FILE: ${file.path}");
     }
-    catch(e){
-      if(kDebugMode){
-        print("UPLOAD ERROR: $e");
-      }
-      return [false, "File upload failed"];
-  }
+
+    final streamedResponse = await request.send();
+    final responseBody = await streamedResponse.stream.bytesToString();
+    final response = http.Response(
+      responseBody,
+      streamedResponse.statusCode,
+      headers: streamedResponse.headers,
+    );
+
+    if (kDebugMode) {
+      print("UPLOAD STATUS: ${response.statusCode}");
+      print("UPLOAD BODY: ${response.body}");
+    }
+
+    return response;
   }
 }

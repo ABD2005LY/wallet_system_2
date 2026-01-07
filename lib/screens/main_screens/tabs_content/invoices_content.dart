@@ -46,9 +46,9 @@ class InvoicesContentState extends State<InvoicesContent> {
       if (result != null) {
         selectedFile = File(result.files.single.path!);
       final api = Api();
-      final success = await api.uploadFile(selectedFile!);
+      final success = await api.upload(selectedFile!);
 
-      if (success[0]) {
+      if (success.statusCode == 200) {
        showCustomFlushBar(
         context,
         "Success",
