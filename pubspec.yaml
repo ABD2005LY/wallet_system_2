@@ -42,6 +42,7 @@ dependencies:
   another_flushbar:
   flutter_animate:
   introduction_screen:
+  mobile_scanner:
 dev_dependencies:
   flutter_test:
     sdk: flutter
