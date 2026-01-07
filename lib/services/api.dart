@@ -100,7 +100,7 @@ class Api {
 
    Future<bool> uploadFile(File file) async {
     try{
-      final uri = Uri.parse("$baseUrl/upload");
+      final uri = Uri.parse("$baseUrl/vendor/upload");
       final request = http.MultipartRequest("POST", uri);
           request.files.add(
         await http.MultipartFile.fromPath(
@@ -108,7 +108,7 @@ class Api {
           file.path,    
         ),
       );
-            final response = await request.send();
+        final response = await request.send();
       if (response.statusCode != 200) {
          return false;
       } else {
