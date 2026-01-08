@@ -10,7 +10,6 @@ class BaseProvider with ChangeNotifier {
      // Source - https://stackoverflow.com/a
 // Posted by Hammad Tariq, modified by community. See post 'Timeline' for change history
 // Retrieved 2026-01-07, License - CC BY-SA 4.0
-
 WidgetsBinding.instance.addPostFrameCallback((_){
 
 notifyListeners();

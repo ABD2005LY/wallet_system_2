@@ -25,9 +25,7 @@ class InvoicesProvider extends BaseProvider {
 
   void getInvoices() async {
     setBusy(true);
-
     final response = await api.get("/vendor/invoices");
-
     if (response.statusCode == 200) {
       invoices = List<InvoiceModel>.from(
         json
