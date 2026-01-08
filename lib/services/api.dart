@@ -1,100 +1,126 @@
 import 'dart:io';
-
-import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
 import 'package:path/path.dart' as path;
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/foundation.dart';
 import 'package:wallet_system_2/helpers/consts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 class Api {
-  Future<Response> get(String endPoint) async {
+  // Helper method to build URL with pagination
+  String _buildUrl(String endPoint, {int? page, int? perPage}) {
+    String url = "$baseUrl$endPoint";
+    if (page != null) {
+      String separator = endPoint.contains('?') ? '&' : '?';
+      url = "$url${separator}page=$page";
+      if (perPage != null) {
+        url = "$url&per_page=$perPage";
+      }
+    }
+    return url;
+  }
+
+  Future<Response> get(String endPoint, {int? page, int? perPage}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     String? token = prefs.getString("token");
-    final response = await http.get(
-      Uri.parse("$baseUrl$endPoint"),
+    String url = _buildUrl(endPoint, page: page, perPage: perPage);
 
+    final response = await http.get(
+      Uri.parse(url),
       headers: {
         "Accept": "application/json",
-        // "content-type": "application/json",
         "Authorization": "Bearer $token",
       },
     );
 
     if (kDebugMode) {
-      print("RESPONSE GET : $baseUrl$endPoint");
-
+      print("RESPONSE GET : $url");
       print("RESPONSE STATUS CODE : ${response.statusCode}");
       print("RESPONSE BODY : ${response.body}");
     }
     return response;
   }
 
-  Future<Response> post(String endPoint, Map body) async {
+  Future<Response> post(
+    String endPoint,
+    Map body, {
+    int? page,
+    int? perPage,
+  }) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString("token");
+    String url = _buildUrl(endPoint, page: page, perPage: perPage);
 
     final response = await http.post(
-      Uri.parse("$baseUrl$endPoint"),
+      Uri.parse(url),
       headers: {
         "Accept": "application/json",
         "Authorization": "Bearer $token",
-
         // "content-type": "application/json",
       },
       body: body,
     );
 
     if (kDebugMode) {
-      print("RESPONSE POST : $baseUrl$endPoint");
+      print("RESPONSE POST : $url");
       print("RESPONSE POST BODY : $body");
-
       print("RESPONSE STATUS CODE : ${response.statusCode}");
       print("RESPONSE BODY : ${response.body}");
     }
     return response;
   }
 
-  Future<Response> put(String endPoint, Map body) async {
+  Future<Response> put(
+    String endPoint,
+    Map body, {
+    int? page,
+    int? perPage,
+  }) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString("token");
+    String url = _buildUrl(endPoint, page: page, perPage: perPage);
 
     final response = await http.put(
-      Uri.parse("$baseUrl$endPoint"),
+      Uri.parse(url),
       body: body,
       headers: {
         "Accept": "application/json",
         "Authorization": "Bearer $token",
-
         // "content-type": "application/json",
       },
     );
     if (kDebugMode) {
-      print("RESPONSE PUT : $baseUrl$endPoint");
+      print("RESPONSE PUT : $url");
       print("RESPONSE STATUS CODE : ${response.statusCode}");
       print("RESPONSE BODY : ${response.body}");
     }
     return response;
   }
 
-  Future<Response> delete(String endPoint, Map body) async {
+  Future<Response> delete(
+    String endPoint,
+    Map body, {
+    int? page,
+    int? perPage,
+  }) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString("token");
+    String url = _buildUrl(endPoint, page: page, perPage: perPage);
 
     final response = await http.delete(
-      Uri.parse("$baseUrl$endPoint"),
+      Uri.parse(url),
       body: body,
       headers: {
         "Accept": "application/json",
         "Authorization": "Bearer $token",
-
         // "content-type": "application/json",
       },
     );
 
     if (kDebugMode) {
-      print("RESPONSE DELETE : $baseUrl$endPoint");
+      print("RESPONSE DELETE : $url");
       print("RESPONSE STATUS CODE : ${response.statusCode}");
       print("RESPONSE BODY : ${response.body}");
     }
