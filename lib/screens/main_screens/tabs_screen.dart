@@ -4,11 +4,10 @@ import 'package:provider/provider.dart';
 import 'package:wallet_system_2/helpers/consts.dart';
 import 'package:wallet_system_2/helpers/functions_helper.dart';
 import 'package:wallet_system_2/providers/auth_provider.dart';
-import 'package:wallet_system_2/screens/handling_screens/qr_scanner.dart';
 import 'package:wallet_system_2/screens/main_screens/tabs_content/invoices_content.dart';
 import 'package:wallet_system_2/screens/main_screens/tabs_content/wallet_content.dart';
 import 'package:wallet_system_2/widgets/dialogs/custom_drawer.dart';
-
+import 'package:wallet_system_2/widgets/dialogs/scan_sheet.dart';
 
 class TabsScreen extends StatefulWidget {
   const TabsScreen({super.key});
@@ -18,8 +17,9 @@ class TabsScreen extends StatefulWidget {
 }
 
 class _TabsScreenState extends State<TabsScreen> {
-  
   int currentIndex = 0;
+
+  List<String> uploadedImages = [];
 
   @override
   Widget build(BuildContext context) {
@@ -68,19 +68,12 @@ class _TabsScreenState extends State<TabsScreen> {
           floatingActionButton: FloatingActionButton(
             backgroundColor: primaryColor,
             child: Icon(Icons.qr_code, color: whiteColor),
-        onPressed: () async {
-    final result = await Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (_) => const QrScannerScreen(),
-      ),
-    );
-
-    if (result != null) {
-      print("QR RESULT: $result");
-    
-    }
-  },
+            onPressed: () async {
+              showModalBottomSheet(
+                context: context,
+                builder: (context) => ScanSheet(),
+              );
+            },
           ),
         );
       },

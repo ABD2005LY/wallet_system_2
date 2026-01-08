@@ -42,9 +42,13 @@ dependencies:
   another_flushbar:
   flutter_animate:
   introduction_screen:
-  mobile_scanner:
+  mobile_scanner:  
   file_picker:
   path_provider:
+  path:
+  image_picker:
+  qr_flutter:
+  cached_network_image:
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -14,7 +14,6 @@ import 'package:wallet_system_2/widgets/dialogs/flush_bar.dart';
 import 'package:wallet_system_2/widgets/inputs/text_field_widget.dart';
 import 'package:wallet_system_2/widgets/statics/header_widget.dart';
 
-
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -125,7 +124,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           context,
                           loginResponse.first ? "Success" : "Failed",
                           loginResponse.last,
-                          loginResponse.first,
                           loginResponse.first,
                         );
                       }

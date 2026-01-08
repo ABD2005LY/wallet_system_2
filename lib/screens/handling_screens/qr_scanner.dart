@@ -1,33 +1,36 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
-class QrScannerScreen extends StatefulWidget {
-  const QrScannerScreen({super.key});
+class QrScanner extends StatefulWidget {
+  const QrScanner({super.key});
 
   @override
-  State<QrScannerScreen> createState() => QrScannerScreenState();
+  State<QrScanner> createState() => _QrScannerState();
 }
-String? qrValue;
 
-class QrScannerScreenState extends State<QrScannerScreen> {
+class _QrScannerState extends State<QrScanner> {
+  MobileScannerController scanController = MobileScannerController();
+
+  @override
+  void dispose() {
+    scanController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      appBar: AppBar(title: const Text("Scan QR")),
-      body: SizedBox.expand(
-        child: MobileScanner(
-          onDetect: (barcodeCapture) {
-            final code = barcodeCapture.barcodes.first.rawValue;
-            if (code != null) {
-            setState(() {
-               qrValue = code;
-               });    
-              Navigator.pop(context, qrValue);}
-          },
-        ),
-      ),
+    return MobileScanner(
+      controller: scanController,
+      onDetect: (scannedData) {
+        if (kDebugMode) {
+          print("DATA IS : ${scannedData.barcodes.first.rawValue.toString()}");
+        }
+        if (scannedData.barcodes.first.rawValue != null) {
+          scanController.pause();
+          Navigator.pop(context, scannedData.barcodes.first.rawValue);
+        }
+      },
     );
   }
 }

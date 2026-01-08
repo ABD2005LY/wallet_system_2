@@ -3,9 +3,9 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
+import 'package:path/path.dart' as path;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wallet_system_2/helpers/consts.dart';
-import 'package:path/path.dart' as path;
 
 class Api {
   Future<Response> get(String endPoint) async {
@@ -24,6 +24,7 @@ class Api {
 
     if (kDebugMode) {
       print("RESPONSE GET : $baseUrl$endPoint");
+
       print("RESPONSE STATUS CODE : ${response.statusCode}");
       print("RESPONSE BODY : ${response.body}");
     }
@@ -47,6 +48,8 @@ class Api {
 
     if (kDebugMode) {
       print("RESPONSE POST : $baseUrl$endPoint");
+      print("RESPONSE POST BODY : $body");
+
       print("RESPONSE STATUS CODE : ${response.statusCode}");
       print("RESPONSE BODY : ${response.body}");
     }
@@ -99,7 +102,7 @@ class Api {
     return response;
   }
 
-Future<Response> upload(File file) async {
+  Future<Response> upload(File file) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString("token");
 

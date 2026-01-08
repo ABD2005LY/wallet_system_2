@@ -4,7 +4,6 @@ import 'package:introduction_screen/introduction_screen.dart';
 import 'package:wallet_system_2/helpers/consts.dart';
 import 'package:wallet_system_2/screens/auth_screens/login_screen.dart';
 
-
 class IntroScreen extends StatefulWidget {
   const IntroScreen({super.key});
 

@@ -8,7 +8,6 @@ import 'package:wallet_system_2/widgets/cickables/clickable_text.dart';
 import 'package:wallet_system_2/widgets/cickables/main_button.dart';
 import 'package:wallet_system_2/widgets/dialogs/flush_bar.dart';
 
-
 class LogoutDialog extends StatelessWidget {
   const LogoutDialog({super.key});
 
@@ -38,7 +37,6 @@ class LogoutDialog extends StatelessWidget {
                               context,
                               logoutResponse.first ? "Success" : "Failed",
                               logoutResponse.last,
-                              logoutResponse.first,
                               logoutResponse.first,
                             );
                           }

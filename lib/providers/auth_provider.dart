@@ -1,5 +1,7 @@
 import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wallet_system_2/models/wallet_model.dart';
 import 'package:wallet_system_2/providers/base_provider.dart';
@@ -70,7 +72,6 @@ class AuthProvider extends BaseProvider {
       setBusy(false);
     }
   }
-  
 
   Future<List> logout() async {
     setBusy(true);
@@ -92,6 +93,6 @@ class AuthProvider extends BaseProvider {
       return [false, json.decode(response.body)["message"]];
     }
   }
- 
-}
 
+
+}

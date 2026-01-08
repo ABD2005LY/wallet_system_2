@@ -1,23 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wallet_system_2/providers/auth_provider.dart';
+import 'package:wallet_system_2/providers/invoices_provider.dart';
 import 'package:wallet_system_2/screens/auth_screens/intro_screen.dart';
 import 'package:wallet_system_2/screens/auth_screens/splash_screen.dart';
 import 'package:wallet_system_2/screens/handling_screens/loading_screen.dart';
 import 'package:wallet_system_2/screens/main_screens/tabs_screen.dart';
+
 void main() {
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => AuthProvider())],
+      providers: [
+        ChangeNotifierProvider(create: (_) => AuthProvider()),
+        ChangeNotifierProvider(create: (_) => InvoicesProvider()),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Wallet System 2',
+        title: 'C Cards',
         theme: ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple)),
         home: SplashScreen(),
       ),

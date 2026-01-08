@@ -53,69 +53,62 @@ class DigitalCard extends StatelessWidget {
   final WalletModel walletModel;
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Container(
+        decoration: BoxDecoration(
+          color: primaryColor,
+
+          borderRadius: BorderRadius.circular(16),
+        ),
+
+        child: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Container(
-            decoration: BoxDecoration(
-              color: primaryColor,
-        
-              borderRadius: BorderRadius.circular(16),
-            ),
-        
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Image.asset(
-                        "assets/chip.png",
-                        width: getSize(context).width * 0.15,
-                      ),
-        
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
-                        child: Text(
-                          walletModel.name,
-                          style: labelMedium.copyWith(color: whiteColor),
-                        ),
-                      ),
-                    ],
+                  Image.asset(
+                    "assets/chip.png",
+                    width: getSize(context).width * 0.15,
                   ),
-        
-                  SizedBox(height: 70),
-        
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        DateTime.now()
-                            .add(Duration(days: 365))
-                            .toString()
-                            .substring(2, 7)
-                            .replaceAll("-", "/"),
-                        style: labelMedium.copyWith(color: whiteColor),
-                      ),
-        
-                      Text(
-                        "${walletModel.balance} LYD",
-                        style: labelMedium.copyWith(color: whiteColor),
-                      ),
-                    ],
+
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    child: Text(
+                      walletModel.name,
+                      style: labelMedium.copyWith(color: whiteColor),
+                    ),
                   ),
                 ],
               ),
-            ),
-            
+
+              SizedBox(height: 70),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    DateTime.now()
+                        .add(Duration(days: 365))
+                        .toString()
+                        .substring(2, 7)
+                        .replaceAll("-", "/"),
+                    style: labelMedium.copyWith(color: whiteColor),
+                  ),
+
+                  Text(
+                    "${walletModel.balance} LYD",
+                    style: labelMedium.copyWith(color: whiteColor),
+                  ),
+                ],
+              ),
+            ],
           ),
-          
         ),
-      ],
+      ),
     );
-    
   }
 }
