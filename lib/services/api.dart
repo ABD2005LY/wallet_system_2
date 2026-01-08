@@ -8,15 +8,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 
 class Api {
-  // Helper method to build URL with pagination
-  String _buildUrl(String endPoint, {int? page, int? perPage}) {
+  String buildUrl(String endPoint, {int? page, int? perPage}) {
     String url = "$baseUrl$endPoint";
     if (page != null) {
-      String separator = endPoint.contains('?') ? '&' : '?';
+      String separator = endPoint;
       url = "$url${separator}page=$page";
       if (perPage != null) {
         url = "$url&per_page=$perPage";
-      }
+       }
     }
     return url;
   }
@@ -25,7 +24,7 @@ class Api {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     String? token = prefs.getString("token");
-    String url = _buildUrl(endPoint, page: page, perPage: perPage);
+    String url = buildUrl(endPoint, page: page, perPage: perPage);
 
     final response = await http.get(
       Uri.parse(url),
@@ -51,7 +50,7 @@ class Api {
   }) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString("token");
-    String url = _buildUrl(endPoint, page: page, perPage: perPage);
+    String url = buildUrl(endPoint, page: page, perPage: perPage);
 
     final response = await http.post(
       Uri.parse(url),
@@ -80,7 +79,7 @@ class Api {
   }) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString("token");
-    String url = _buildUrl(endPoint, page: page, perPage: perPage);
+    String url = buildUrl(endPoint, page: page, perPage: perPage);
 
     final response = await http.put(
       Uri.parse(url),
@@ -107,7 +106,7 @@ class Api {
   }) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString("token");
-    String url = _buildUrl(endPoint, page: page, perPage: perPage);
+    String url = buildUrl(endPoint, page: page, perPage: perPage);
 
     final response = await http.delete(
       Uri.parse(url),
